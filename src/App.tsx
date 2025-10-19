@@ -4,7 +4,7 @@ import { Toaster, toast } from "react-hot-toast";
 import {
   HiSparkles, HiUserGroup, HiPuzzle,
   HiPlay, HiDownload, HiUpload, HiClipboard,
-  HiCheckCircle, HiExclamation, HiChevronDown
+  HiCheckCircle, HiExclamation, HiChevronDown, HiPencil
 } from "react-icons/hi";
 import { FaTrophy } from "react-icons/fa";
 import { Dialog, Transition } from "@headlessui/react";
@@ -364,6 +364,8 @@ export default function App() {
   const [meetingsMap, setMeetingsMap] = useState<Record<string, number>>({});
   const [jsonIO, setJsonIO] = useState<string>("");
   const [showExportModal, setShowExportModal] = useState(false);
+  const [showEditNameModal, setShowEditNameModal] = useState(false);
+  const [editingPlayer, setEditingPlayer] = useState<{ id: string; name: string } | null>(null);
 
   const playerMap = useMemo(
     () => Object.fromEntries(players.map((p) => [p.id, p])),
@@ -758,6 +760,25 @@ export default function App() {
     }
   }
 
+  function openEditPlayerModal(playerId: string) {
+    const player = players.find(p => p.id === playerId);
+    if (player) {
+      setEditingPlayer({ id: player.id, name: player.name });
+      setShowEditNameModal(true);
+    }
+  }
+
+  function savePlayerName() {
+    if (!editingPlayer) return;
+
+    setPlayers((ps) =>
+      ps.map((p) => p.id === editingPlayer.id ? { ...p, name: editingPlayer.name } : p)
+    );
+    setShowEditNameModal(false);
+    setEditingPlayer(null);
+    toast.success("Nome aggiornato!");
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 relative overflow-hidden">
       {/* Animated background */}
@@ -1013,7 +1034,18 @@ export default function App() {
                             </div>
                           </td>
                           <td className="px-6 py-5">
-                            <div className="font-black text-slate-800 text-lg">{row.name}</div>
+                            <div className="flex items-center gap-3">
+                              <div className="font-black text-slate-800 text-lg">{row.name}</div>
+                              <motion.button
+                                whileHover={{ scale: 1.1 }}
+                                whileTap={{ scale: 0.9 }}
+                                onClick={() => openEditPlayerModal(row.id)}
+                                className="p-2 rounded-lg bg-indigo-100 hover:bg-indigo-200 text-indigo-600 transition-colors"
+                                title="Modifica nome"
+                              >
+                                <HiPencil className="text-lg" />
+                              </motion.button>
+                            </div>
                           </td>
                           <td className="px-6 py-5 text-right">
                             <div className={`inline-flex items-center px-4 py-2 rounded-xl font-black text-lg shadow-lg ${
@@ -1109,6 +1141,71 @@ export default function App() {
           </GlassCard>
         </motion.footer>
       </div>
+
+      {/* Edit Name Modal */}
+      <Transition appear show={showEditNameModal} as={React.Fragment}>
+        <Dialog as="div" className="relative z-50" onClose={() => setShowEditNameModal(false)}>
+          <Transition.Child
+            as={React.Fragment}
+            enter="ease-out duration-300"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="ease-in duration-200"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
+          >
+            <div className="fixed inset-0 bg-black/70 backdrop-blur-sm" />
+          </Transition.Child>
+
+          <div className="fixed inset-0 overflow-y-auto">
+            <div className="flex min-h-full items-center justify-center p-4">
+              <Transition.Child
+                as={React.Fragment}
+                enter="ease-out duration-300"
+                enterFrom="opacity-0 scale-95"
+                enterTo="opacity-100 scale-100"
+                leave="ease-in duration-200"
+                leaveFrom="opacity-100 scale-100"
+                leaveTo="opacity-0 scale-95"
+              >
+                <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-3xl bg-white p-8 shadow-2xl transition-all">
+                  <Dialog.Title className="text-3xl font-black text-slate-800 mb-6 flex items-center gap-3">
+                    <HiPencil className="text-indigo-600" />
+                    Modifica Nome Giocatore
+                  </Dialog.Title>
+
+                  <div className="space-y-6">
+                    <div>
+                      <label className="block text-sm font-bold text-slate-700 mb-2">Nome del giocatore</label>
+                      <input
+                        type="text"
+                        className="w-full px-4 py-3 bg-white border-2 border-indigo-300 rounded-xl font-semibold text-slate-800 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-200 transition-all"
+                        value={editingPlayer?.name || ""}
+                        onChange={(e) => setEditingPlayer(editingPlayer ? { ...editingPlayer, name: e.target.value } : null)}
+                        onKeyDown={(e) => {
+                          if (e.key === 'Enter') {
+                            savePlayerName();
+                          }
+                        }}
+                        autoFocus
+                      />
+                    </div>
+
+                    <div className="flex gap-3">
+                      <ModernButton variant="success" onClick={savePlayerName} className="flex-1">
+                        Salva
+                      </ModernButton>
+                      <ModernButton variant="secondary" onClick={() => setShowEditNameModal(false)} className="flex-1">
+                        Annulla
+                      </ModernButton>
+                    </div>
+                  </div>
+                </Dialog.Panel>
+              </Transition.Child>
+            </div>
+          </div>
+        </Dialog>
+      </Transition>
 
       {/* Export Modal */}
       <Transition appear show={showExportModal} as={React.Fragment}>

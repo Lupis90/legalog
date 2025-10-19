@@ -1,7 +1,7 @@
 import { toast } from "react-hot-toast";
 import { useTournamentContext } from "../context/TournamentContext";
 import type { TableLetter, RoundData, TableResult } from "../types";
-import { TABLES, MULTIPLIER } from "../constants";
+import { TABLES, MULTIPLIER, GAME_SCHEMA } from "../constants";
 import { shuffle, deepClone } from "../utils/helpers";
 import { calculateBasePoints, calculateWinners, calculateBonuses, calculateRoundTotals, updateMeetings } from "../utils/scoring";
 import { computePromotions } from "../utils/promotions";
@@ -39,6 +39,29 @@ export function useTournament() {
         positions: Object.fromEntries(tableAssignments[t].map((id) => [id, null])),
       })),
     };
+  }
+
+  /**
+   * Assign games to a round using the fixed schema
+   */
+  function assignGamesFromSchema(round: RoundData): RoundData {
+    const schema = GAME_SCHEMA[round.index];
+    if (!schema) {
+      toast.error(`Schema di giochi non trovato per il round ${round.index}`);
+      return round;
+    }
+
+    const updatedRound = deepClone(round);
+    updatedRound.tables.forEach((table) => {
+      const gameTitle = schema[table.table];
+      if (gameTitle) {
+        table.game = gameTitle;
+      } else {
+        toast.error(`Nessun gioco definito per la tavola ${table.table} nel round ${round.index}`);
+      }
+    });
+
+    return updatedRound;
   }
 
   /**
@@ -85,11 +108,9 @@ export function useTournament() {
     });
 
     const r1 = makeEmptyRound(1, tableAssignments);
-    r1.tables.forEach((tbl) => {
-      tbl.game = suggestGameForTable(tbl.players);
-    });
+    const r1WithGames = assignGamesFromSchema(r1);
 
-    setRounds([r1]);
+    setRounds([r1WithGames]);
     setActiveRound(1);
     toast.success("🎉 Round 1 iniziato!");
   }
@@ -172,12 +193,10 @@ export function useTournament() {
     if (round.index < 4) {
       const nextAssignments = computePromotions(round, nextPlayers);
       const nextR = makeEmptyRound((round.index + 1) as 2 | 3 | 4, nextAssignments);
-      nextR.tables.forEach((tbl) => {
-        tbl.game = suggestGameForTable(tbl.players);
-      });
+      const nextRWithGames = assignGamesFromSchema(nextR);
 
       rs[roundIdx0] = round;
-      setRounds([...rs, nextR]);
+      setRounds([...rs, nextRWithGames]);
       setActiveRound((round.index + 1) as 2 | 3 | 4);
       toast.success(`✅ Round ${round.index} completato! Round ${round.index + 1} generato.`);
     } else {

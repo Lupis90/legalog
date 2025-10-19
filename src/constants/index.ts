@@ -31,3 +31,39 @@ export const MAX_BONUS_POINTS = 3;
 export const HOT_STREAK_BONUS = 1;
 export const ARCINEMICO_BONUS = 1;
 export const ARCINEMICO_THRESHOLD = 2; // 3rd meeting (index 2)
+
+/**
+ * Fixed game assignment schema per round
+ * Keys are table letters (A, B, C, D), values are game titles from DEFAULT_GAMES
+ * Schema from user specification:
+ * Round 1: T1→A, T2→B, T3→C, T4→D
+ * Round 2: T1→C, T2→B, T3→A, T4→E
+ * Round 3: T1→D, T2→F, T3→G, T4→H
+ * Round 4: T1→E, T2→H, T3→G, T4→F
+ */
+export const GAME_SCHEMA: Record<number, Record<string, string>> = {
+  1: {
+    A: "7 Wonders",          // Table A (T1) → game A
+    B: "Splendor",           // Table B (T2) → game B
+    C: "Azul",               // Table C (T3) → game C
+    D: "Harmonies",          // Table D (T4) → game D
+  },
+  2: {
+    A: "Azul",               // Table A (T1) → game C
+    B: "Splendor",           // Table B (T2) → game B
+    C: "7 Wonders",          // Table C (T3) → game A
+    D: "Faraway",            // Table D (T4) → game E
+  },
+  3: {
+    A: "Harmonies",          // Table A (T1) → game D
+    B: "Cities",             // Table B (T2) → game F
+    C: "Heat: Pedal to the Metal",  // Table C (T3) → game G
+    D: "Ticket to Ride Europe",     // Table D (T4) → game H
+  },
+  4: {
+    A: "Faraway",            // Table A (T1) → game E
+    B: "Ticket to Ride Europe",     // Table B (T2) → game H
+    C: "Heat: Pedal to the Metal",  // Table C (T3) → game G
+    D: "Cities",             // Table D (T4) → game F
+  },
+};

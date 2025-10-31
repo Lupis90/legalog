@@ -29,6 +29,7 @@ function AppContent() {
     setGameForTable,
     exportData,
     importData,
+    clearSavedData,
   } = useTournamentContext();
 
   const { startTournament, finalizeRound, suggestGameForTable, hasRepeatGameForAny } =
@@ -76,6 +77,15 @@ function AppContent() {
       toast.success("✅ Dati importati con successo!");
     } catch (e: any) {
       toast.error("❌ Errore import JSON: " + e.message);
+    }
+  }
+
+  function handleClearSavedData() {
+    if (window.confirm("Sei sicuro di voler cancellare tutti i dati salvati? Questa azione non può essere annullata.")) {
+      clearSavedData();
+      toast.success("🗑️ Dati salvati cancellati!");
+      // Ricarica la pagina per resettare lo stato
+      setTimeout(() => window.location.reload(), 1000);
     }
   }
 
@@ -136,7 +146,11 @@ function AppContent() {
       />
 
       <div className="relative max-w-7xl mx-auto p-4 md:p-6 lg:p-8">
-        <Header onStartTournament={startTournament} onExport={handleExportJSON} />
+        <Header
+          onStartTournament={startTournament}
+          onExport={handleExportJSON}
+          onClearData={handleClearSavedData}
+        />
 
         {/* Setup Section */}
         <section className="grid md:grid-cols-2 gap-8 mb-12">

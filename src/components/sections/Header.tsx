@@ -1,15 +1,16 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { HiPlay, HiDownload } from "react-icons/hi";
-import { FaTrophy } from "react-icons/fa";
+import { HiPlay, HiDownload, HiTrash } from "react-icons/hi";
 import { GlassCard, ModernButton } from "../ui";
+import logoImage from "../../assets/WhatsApp Image 2025-01-24 at 12.34.40 (1).jpeg";
 
 interface HeaderProps {
   onStartTournament: () => void;
   onExport: () => void;
+  onClearData: () => void;
 }
 
-export const Header: React.FC<HeaderProps> = ({ onStartTournament, onExport }) => (
+export const Header: React.FC<HeaderProps> = ({ onStartTournament, onExport, onClearData }) => (
   <motion.header
     initial={{ opacity: 0, y: -50 }}
     animate={{ opacity: 1, y: 0 }}
@@ -20,25 +21,28 @@ export const Header: React.FC<HeaderProps> = ({ onStartTournament, onExport }) =
       <div className="flex flex-col md:flex-row items-center justify-between gap-6">
         <div className="flex items-center gap-6">
           <motion.div
-            animate={{ rotate: [0, 10, -10, 0] }}
+            animate={{ scale: [1, 1.05, 1] }}
             transition={{ duration: 2, repeat: Infinity, repeatDelay: 3 }}
-            className="p-5 bg-gradient-to-br from-yellow-400 via-orange-500 to-pink-600 rounded-3xl shadow-2xl"
+            className="rounded-2xl shadow-2xl overflow-hidden"
           >
-            <FaTrophy className="text-5xl text-white" />
+            <img src={logoImage} alt="LOG League Logo" className="w-20 h-20 md:w-24 md:h-24 object-cover" />
           </motion.div>
           <div>
-            <h1 className="text-4xl md:text-6xl font-black bg-gradient-to-r from-yellow-400 via-pink-500 to-purple-600 bg-clip-text text-transparent mb-2">
-              LOG League
+            <h1 className="text-4xl md:text-6xl font-black bg-gradient-to-r from-yellow-400 via-pink-500 to-purple-600 bg-clip-text text-transparent pb-1 mb-2 leading-tight">
+              The Log Open
             </h1>
             <p className="text-lg md:text-xl text-slate-300 font-semibold">Big-Game Flavor Dashboard</p>
           </div>
         </div>
-        <div className="flex gap-4">
+        <div className="flex flex-wrap gap-4">
           <ModernButton variant="success" onClick={onStartTournament} icon={<HiPlay />}>
             Avvia R1
           </ModernButton>
           <ModernButton variant="secondary" onClick={onExport} icon={<HiDownload />}>
             Esporta
+          </ModernButton>
+          <ModernButton variant="danger" onClick={onClearData} icon={<HiTrash />}>
+            Cancella Dati
           </ModernButton>
         </div>
       </div>

@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useMemo } from "react";
+import { createContext, useContext, useState, useMemo, useEffect, useRef } from "react";
 import type { ReactNode } from "react";
 import type { Player, Game, RoundData, TableLetter, StandingRow } from "../types";
 import { DEFAULT_GAMES } from "../constants";
@@ -8,6 +8,8 @@ import { calculateStandings } from "../utils/standings";
 /**
  * Tournament Context for global state management
  */
+
+const STORAGE_KEY = 'legalog-tournament';
 
 interface TournamentContextType {
   // State
@@ -45,11 +47,16 @@ interface TournamentContextType {
   // Import/Export
   exportData: () => { players: Player[]; games: Game[]; rounds: RoundData[]; meetingsMap: Record<string, number>; activeRound: 0 | 1 | 2 | 3 | 4 };
   importData: (data: { players: Player[]; games: Game[]; rounds: RoundData[]; meetingsMap?: Record<string, number>; activeRound?: 0 | 1 | 2 | 3 | 4 }) => void;
+
+  // LocalStorage
+  clearSavedData: () => void;
 }
 
 const TournamentContext = createContext<TournamentContextType | undefined>(undefined);
 
 export function TournamentProvider({ children }: { children: ReactNode }) {
+  const [isInitialized, setIsInitialized] = useState(false);
+
   const [players, setPlayers] = useState<Player[]>(
     Array.from({ length: 16 }, (_, i) => ({
       id: uid(),
@@ -66,6 +73,84 @@ export function TournamentProvider({ children }: { children: ReactNode }) {
   const [rounds, setRounds] = useState<RoundData[]>([]);
   const [activeRound, setActiveRound] = useState<0 | 1 | 2 | 3 | 4>(0);
   const [meetingsMap, setMeetingsMap] = useState<Record<string, number>>({});
+
+  // LocalStorage functions
+  const saveToLocalStorage = () => {
+    if (!isInitialized) return; // Don't save during initial load
+
+    try {
+      const data = { players, games, rounds, meetingsMap, activeRound };
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    } catch (error) {
+      console.error('Errore nel salvataggio su localStorage:', error);
+      // Se quota exceeded o altro errore, notificare l'utente (opzionale)
+    }
+  };
+
+  const loadFromLocalStorage = () => {
+    try {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (!saved) return false;
+
+      const data = JSON.parse(saved);
+
+      // Validazione base
+      if (data.players && Array.isArray(data.players) &&
+          data.rounds && Array.isArray(data.rounds)) {
+        setPlayers(data.players);
+        setGames(data.games && data.games.length > 0 ? data.games : deepClone(DEFAULT_GAMES));
+        setRounds(data.rounds);
+        setMeetingsMap(data.meetingsMap || {});
+        setActiveRound(
+          data.activeRound !== undefined
+            ? data.activeRound
+            : data.rounds.length > 0
+            ? data.rounds[data.rounds.length - 1].index
+            : 0
+        );
+        return true;
+      }
+      return false;
+    } catch (error) {
+      console.error('Errore nel caricamento da localStorage:', error);
+      return false;
+    }
+  };
+
+  const clearSavedData = () => {
+    try {
+      localStorage.removeItem(STORAGE_KEY);
+    } catch (error) {
+      console.error('Errore nella cancellazione da localStorage:', error);
+    }
+  };
+
+  // Load from localStorage on mount
+  useEffect(() => {
+    loadFromLocalStorage();
+    setIsInitialized(true);
+  }, []);
+
+  // Auto-save with debounce
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  useEffect(() => {
+    if (!isInitialized) return;
+
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+    }
+
+    timeoutRef.current = setTimeout(() => {
+      saveToLocalStorage();
+    }, 500); // Debounce di 500ms
+
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+    };
+  }, [players, games, rounds, activeRound, meetingsMap, isInitialized]);
 
   // Derived state
   const playerMap = useMemo(
@@ -207,6 +292,7 @@ export function TournamentProvider({ children }: { children: ReactNode }) {
     setGameForTable,
     exportData,
     importData,
+    clearSavedData,
   };
 
   return <TournamentContext.Provider value={value}>{children}</TournamentContext.Provider>;

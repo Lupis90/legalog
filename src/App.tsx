@@ -19,6 +19,7 @@ function AppContent() {
     currentRound,
     playerMap,
     standings,
+    meetingsMap,
     addPlayer,
     removeLastPlayer,
     updatePlayerName,
@@ -175,6 +176,7 @@ function AppContent() {
             playerMap={playerMap}
             games={games}
             roundIndex={currentRoundIndex}
+            meetingsMap={meetingsMap}
             hasRepeatGameForAny={hasRepeatGameForAny}
             onGameChange={setGameForTable}
             onPositionChange={updatePosition}

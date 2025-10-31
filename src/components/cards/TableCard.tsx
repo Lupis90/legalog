@@ -2,12 +2,14 @@ import { motion, AnimatePresence } from "framer-motion";
 import { HiSparkles, HiExclamation } from "react-icons/hi";
 import type { TableResult, Player, Game } from "../../types";
 import { ModernButton } from "../ui";
+import { checkArchenemicoEligibility } from "../../utils/helpers";
 
 interface TableCardProps {
   table: TableResult;
   playerMap: Record<string, Player>;
   games: Game[];
   hasRepeatWarning: boolean;
+  meetingsMap: Record<string, number>;
   onGameChange: (game: string) => void;
   onPositionChange: (playerId: string, position: number | null) => void;
   onSuggestGame: () => void;
@@ -18,6 +20,7 @@ export const TableCard: React.FC<TableCardProps> = ({
   playerMap,
   games,
   hasRepeatWarning,
+  meetingsMap,
   onGameChange,
   onPositionChange,
   onSuggestGame,
@@ -127,8 +130,11 @@ export const TableCard: React.FC<TableCardProps> = ({
                 <div className="flex items-center justify-center w-10 h-10 bg-gradient-to-br from-slate-100 to-slate-200 rounded-xl shadow-sm border border-slate-300">
                   <span className="text-sm font-black text-slate-700">{idx + 1}</span>
                 </div>
-                <div className="flex-1 font-bold text-slate-800 text-lg truncate">
-                  {playerMap[pid]?.name}
+                <div className="flex-1 font-bold text-slate-800 text-lg truncate flex items-center gap-2">
+                  <span>{playerMap[pid]?.name}</span>
+                  {checkArchenemicoEligibility(pid, table.players, meetingsMap) && (
+                    <span className="flex-shrink-0 text-lg" title="Eleggibile per bonus Arcinemico">⚔️</span>
+                  )}
                 </div>
                 <select
                   className={`px-4 py-2.5 rounded-xl border-2 font-black transition-all duration-200 ${

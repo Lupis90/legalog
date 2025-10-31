@@ -11,6 +11,7 @@ interface CurrentRoundProps {
   playerMap: Record<string, Player>;
   games: Game[];
   roundIndex: number;
+  meetingsMap: Record<string, number>;
   hasRepeatGameForAny: (table: any) => boolean;
   onGameChange: (roundIndex: number, table: TableLetter, game: string) => void;
   onPositionChange: (roundIndex: number, table: TableLetter, pid: string, pos: number | null) => void;
@@ -23,6 +24,7 @@ export const CurrentRound: React.FC<CurrentRoundProps> = ({
   playerMap,
   games,
   roundIndex,
+  meetingsMap,
   hasRepeatGameForAny,
   onGameChange,
   onPositionChange,
@@ -65,6 +67,7 @@ export const CurrentRound: React.FC<CurrentRoundProps> = ({
               playerMap={playerMap}
               games={games}
               hasRepeatWarning={hasRepeatGameForAny(t)}
+              meetingsMap={meetingsMap}
               onGameChange={(game) => onGameChange(roundIndex, t.table, game)}
               onPositionChange={(pid, pos) => onPositionChange(roundIndex, t.table, pid, pos)}
               onSuggestGame={() => onSuggestGame(roundIndex, t.table, t.players)}

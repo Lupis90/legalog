@@ -35,3 +35,25 @@ export function shuffle<T>(arr: T[]): T[] {
   }
   return a;
 }
+
+/**
+ * Check if a player is eligible for Arcinemico bonus at a given table
+ * Returns true if the player has met any opponent 2+ times
+ */
+export function checkArchenemicoEligibility(
+  playerId: string,
+  tablePlayerIds: string[],
+  meetingsMap: Record<string, number>
+): boolean {
+  for (const opponentId of tablePlayerIds) {
+    if (opponentId === playerId) continue;
+
+    const key = keyPair(playerId, opponentId);
+    const meetings = meetingsMap[key] || 0;
+
+    if (meetings >= 2) {
+      return true;
+    }
+  }
+  return false;
+}

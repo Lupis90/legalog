@@ -43,8 +43,8 @@ interface TournamentContextType {
   setGameForTable: (roundIndex: number, table: TableLetter, gameTitle: string) => void;
 
   // Import/Export
-  exportData: () => { players: Player[]; games: Game[]; rounds: RoundData[]; meetingsMap: Record<string, number> };
-  importData: (data: { players: Player[]; games: Game[]; rounds: RoundData[]; meetingsMap: Record<string, number> }) => void;
+  exportData: () => { players: Player[]; games: Game[]; rounds: RoundData[]; meetingsMap: Record<string, number>; activeRound: 0 | 1 | 2 | 3 | 4 };
+  importData: (data: { players: Player[]; games: Game[]; rounds: RoundData[]; meetingsMap?: Record<string, number>; activeRound?: 0 | 1 | 2 | 3 | 4 }) => void;
 }
 
 const TournamentContext = createContext<TournamentContextType | undefined>(undefined);
@@ -154,19 +154,27 @@ export function TournamentProvider({ children }: { children: ReactNode }) {
   };
 
   // Import/Export
-  const exportData = () => ({ players, games, rounds, meetingsMap });
+  const exportData = () => ({ players, games, rounds, meetingsMap, activeRound });
 
   const importData = (data: {
     players: Player[];
     games: Game[];
     rounds: RoundData[];
-    meetingsMap: Record<string, number>;
+    meetingsMap?: Record<string, number>;
+    activeRound?: 0 | 1 | 2 | 3 | 4;
   }) => {
     setPlayers(data.players);
-    setGames(data.games || DEFAULT_GAMES);
+    setGames(data.games && data.games.length > 0 ? data.games : DEFAULT_GAMES);
     setRounds(data.rounds);
     setMeetingsMap(data.meetingsMap || {});
-    setActiveRound(data.rounds[data.rounds.length - 1]?.index || 0);
+    // Usa activeRound salvato se disponibile, altrimenti calcola dall'ultimo round
+    setActiveRound(
+      data.activeRound !== undefined
+        ? data.activeRound
+        : data.rounds.length > 0
+        ? data.rounds[data.rounds.length - 1].index
+        : 0
+    );
   };
 
   const value: TournamentContextType = {

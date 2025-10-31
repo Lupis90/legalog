@@ -49,7 +49,29 @@ function AppContent() {
   function handleImportJSON() {
     try {
       const data = JSON.parse(jsonIO);
-      if (!data.players || !data.rounds) throw new Error("JSON non valido");
+
+      // Validazione struttura base
+      if (!data.players || !Array.isArray(data.players)) {
+        throw new Error("Campo 'players' mancante o non valido");
+      }
+      if (!data.rounds || !Array.isArray(data.rounds)) {
+        throw new Error("Campo 'rounds' mancante o non valido");
+      }
+
+      // Validazione players
+      for (const p of data.players) {
+        if (!p.id || !p.name) {
+          throw new Error("Player con campi mancanti (id, name)");
+        }
+      }
+
+      // Validazione rounds
+      for (const r of data.rounds) {
+        if (!r.index || !r.tables || !Array.isArray(r.tables)) {
+          throw new Error("Round con struttura non valida");
+        }
+      }
+
       importData(data);
       toast.success("✅ Dati importati con successo!");
     } catch (e: any) {

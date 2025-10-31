@@ -1,0 +1,350 @@
+{
+  "players": [
+    {
+      "id": "p1",
+      "name": "Alice",
+      "total": 16.5,
+      "roundPoints": [8, 8.5],
+      "wins": 2,
+      "gamesPlayed": ["7 Wonders", "Azul"],
+      "hotStreakTriggered": true
+    },
+    {
+      "id": "p2",
+      "name": "Bob",
+      "total": 14,
+      "roundPoints": [7, 7],
+      "wins": 2,
+      "gamesPlayed": ["7 Wonders", "Azul"],
+      "hotStreakTriggered": true
+    },
+    {
+      "id": "p3",
+      "name": "Charlie",
+      "total": 13,
+      "roundPoints": [5, 8],
+      "wins": 1,
+      "gamesPlayed": ["7 Wonders", "Splendor"],
+      "hotStreakTriggered": false
+    },
+    {
+      "id": "p4",
+      "name": "Diana",
+      "total": 12,
+      "roundPoints": [7, 5],
+      "wins": 1,
+      "gamesPlayed": ["7 Wonders", "Splendor"],
+      "hotStreakTriggered": false
+    },
+    {
+      "id": "p5",
+      "name": "Eve",
+      "total": 11,
+      "roundPoints": [5, 6],
+      "wins": 1,
+      "gamesPlayed": ["Splendor", "7 Wonders"],
+      "hotStreakTriggered": false
+    },
+    {
+      "id": "p6",
+      "name": "Frank",
+      "total": 10,
+      "roundPoints": [5, 5],
+      "wins": 1,
+      "gamesPlayed": ["Splendor", "Azul"],
+      "hotStreakTriggered": false
+    },
+    {
+      "id": "p7",
+      "name": "Grace",
+      "total": 9,
+      "roundPoints": [3, 6],
+      "wins": 0,
+      "gamesPlayed": ["Splendor", "Faraway"],
+      "hotStreakTriggered": false
+    },
+    {
+      "id": "p8",
+      "name": "Henry",
+      "total": 8,
+      "roundPoints": [5, 3],
+      "wins": 0,
+      "gamesPlayed": ["Splendor", "7 Wonders"],
+      "hotStreakTriggered": false
+    },
+    {
+      "id": "p9",
+      "name": "Iris",
+      "total": 7.5,
+      "roundPoints": [3, 4.5],
+      "wins": 0,
+      "gamesPlayed": ["Azul", "Splendor"],
+      "hotStreakTriggered": false
+    },
+    {
+      "id": "p10",
+      "name": "Jack",
+      "total": 7,
+      "roundPoints": [4, 3],
+      "wins": 0,
+      "gamesPlayed": ["Azul", "Azul"],
+      "hotStreakTriggered": false
+    },
+    {
+      "id": "p11",
+      "name": "Kate",
+      "total": 6,
+      "roundPoints": [3, 3],
+      "wins": 0,
+      "gamesPlayed": ["Azul", "Faraway"],
+      "hotStreakTriggered": false
+    },
+    {
+      "id": "p12",
+      "name": "Leo",
+      "total": 5,
+      "roundPoints": [1, 4],
+      "wins": 0,
+      "gamesPlayed": ["Azul", "Faraway"],
+      "hotStreakTriggered": false
+    },
+    {
+      "id": "p13",
+      "name": "Mia",
+      "total": 4,
+      "roundPoints": [3, 1],
+      "wins": 0,
+      "gamesPlayed": ["Harmonies", "Faraway"],
+      "hotStreakTriggered": false
+    },
+    {
+      "id": "p14",
+      "name": "Noah",
+      "total": 3.5,
+      "roundPoints": [1, 2.5],
+      "wins": 0,
+      "gamesPlayed": ["Harmonies", "Faraway"],
+      "hotStreakTriggered": false
+    },
+    {
+      "id": "p15",
+      "name": "Olivia",
+      "total": 3,
+      "roundPoints": [1, 2],
+      "wins": 0,
+      "gamesPlayed": ["Harmonies", "Splendor"],
+      "hotStreakTriggered": false
+    },
+    {
+      "id": "p16",
+      "name": "Peter",
+      "total": 2,
+      "roundPoints": [1, 1],
+      "wins": 0,
+      "gamesPlayed": ["Harmonies", "Azul"],
+      "hotStreakTriggered": false
+    }
+  ],
+  "games": [
+    { "title": "7 Wonders", "weight": 2.29, "duration": "30 min" },
+    { "title": "Splendor", "weight": 1.78, "duration": "30 min" },
+    { "title": "Azul", "weight": 1.77, "duration": "45 min" },
+    { "title": "Harmonies", "weight": 2.01, "duration": "45 min" },
+    { "title": "Faraway", "weight": 1.91, "duration": "30 min" },
+    { "title": "Cities", "weight": 1.92, "duration": "45 min" },
+    { "title": "Heat: Pedal to the Metal", "weight": 2.2, "duration": "45 min" },
+    { "title": "Ticket to Ride Europe", "weight": 1.92, "duration": "45 min" }
+  ],
+  "rounds": [
+    {
+      "index": 1,
+      "tables": [
+        {
+          "table": "A",
+          "game": "7 Wonders",
+          "players": ["p1", "p2", "p3", "p4"],
+          "positions": {
+            "p1": 1,
+            "p2": 1,
+            "p3": 2,
+            "p4": 2
+          }
+        },
+        {
+          "table": "B",
+          "game": "Splendor",
+          "players": ["p5", "p6", "p7", "p8"],
+          "positions": {
+            "p5": 1,
+            "p6": 1,
+            "p7": 3,
+            "p8": 1
+          }
+        },
+        {
+          "table": "C",
+          "game": "Azul",
+          "players": ["p9", "p10", "p11", "p12"],
+          "positions": {
+            "p9": 3,
+            "p10": 4,
+            "p11": 3,
+            "p12": 1
+          }
+        },
+        {
+          "table": "D",
+          "game": "Harmonies",
+          "players": ["p13", "p14", "p15", "p16"],
+          "positions": {
+            "p13": 3,
+            "p14": 1,
+            "p15": 1,
+            "p16": 1
+          }
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "tables": [
+        {
+          "table": "A",
+          "game": "Azul",
+          "players": ["p1", "p2", "p14", "p15"],
+          "positions": {
+            "p1": 1,
+            "p2": 1,
+            "p14": 3,
+            "p15": 4
+          }
+        },
+        {
+          "table": "B",
+          "game": "Splendor",
+          "players": ["p3", "p4", "p5", "p6"],
+          "positions": {
+            "p3": 1,
+            "p4": 2,
+            "p5": 3,
+            "p6": 2
+          }
+        },
+        {
+          "table": "C",
+          "game": "7 Wonders",
+          "players": ["p7", "p8", "p9", "p10"],
+          "positions": {
+            "p7": 1,
+            "p8": 3,
+            "p9": 2,
+            "p10": 3
+          }
+        },
+        {
+          "table": "D",
+          "game": "Faraway",
+          "players": ["p11", "p12", "p13", "p16"],
+          "positions": {
+            "p11": 3,
+            "p12": 2,
+            "p13": 1,
+            "p16": 1
+          }
+        }
+      ]
+    },
+    {
+      "index": 3,
+      "tables": [
+        {
+          "table": "A",
+          "game": "Harmonies",
+          "players": ["p1", "p2", "p3", "p7"],
+          "positions": {
+            "p1": null,
+            "p2": null,
+            "p3": null,
+            "p7": null
+          }
+        },
+        {
+          "table": "B",
+          "game": "Cities",
+          "players": ["p4", "p5", "p13", "p14"],
+          "positions": {
+            "p4": null,
+            "p5": null,
+            "p13": null,
+            "p14": null
+          }
+        },
+        {
+          "table": "C",
+          "game": "Heat: Pedal to the Metal",
+          "players": ["p6", "p8", "p9", "p12"],
+          "positions": {
+            "p6": null,
+            "p8": null,
+            "p9": null,
+            "p12": null
+          }
+        },
+        {
+          "table": "D",
+          "game": "Ticket to Ride Europe",
+          "players": ["p10", "p11", "p15", "p16"],
+          "positions": {
+            "p10": null,
+            "p11": null,
+            "p15": null,
+            "p16": null
+          }
+        }
+      ]
+    }
+  ],
+  "meetingsMap": {
+    "p1|p2": 2,
+    "p1|p3": 2,
+    "p1|p4": 1,
+    "p2|p3": 1,
+    "p2|p4": 1,
+    "p3|p4": 2,
+    "p5|p6": 2,
+    "p5|p7": 1,
+    "p5|p8": 1,
+    "p6|p7": 1,
+    "p6|p8": 1,
+    "p7|p8": 1,
+    "p10|p9": 2,
+    "p11|p9": 1,
+    "p12|p9": 1,
+    "p10|p11": 1,
+    "p10|p12": 1,
+    "p11|p12": 1,
+    "p13|p14": 1,
+    "p13|p15": 1,
+    "p13|p16": 2,
+    "p14|p15": 2,
+    "p14|p16": 1,
+    "p15|p16": 1,
+    "p1|p14": 1,
+    "p1|p15": 1,
+    "p14|p2": 1,
+    "p15|p2": 1,
+    "p3|p5": 1,
+    "p3|p6": 1,
+    "p4|p5": 1,
+    "p4|p6": 1,
+    "p7|p9": 1,
+    "p10|p7": 1,
+    "p8|p9": 1,
+    "p10|p8": 1,
+    "p11|p13": 1,
+    "p12|p13": 1,
+    "p11|p16": 1,
+    "p12|p16": 1
+  },
+  "activeRound": 3
+}

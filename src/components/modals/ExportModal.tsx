@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useRef } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import { HiDownload, HiUpload, HiClipboard, HiSparkles } from "react-icons/hi";
+import { HiDownload, HiUpload, HiClipboard, HiSparkles, HiDocumentText } from "react-icons/hi";
 import { toast } from "react-hot-toast";
 import { ModernButton } from "../ui";
 
@@ -20,7 +20,48 @@ export const ExportModal: React.FC<ExportModalProps> = ({
   onJsonChange,
   onExport,
   onImport,
-}) => (
+}) => {
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const handleDownloadJSON = () => {
+    if (!jsonData) {
+      toast.error("Nessun dato da scaricare!");
+      return;
+    }
+    const blob = new Blob([jsonData], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `legalog-backup-${new Date().toISOString().slice(0, 10)}.json`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    toast.success("📥 File scaricato!");
+  };
+
+  const handleUploadJSON = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      const content = event.target?.result as string;
+      onJsonChange(content);
+      toast.success("📤 File caricato! Clicca 'Importa JSON' per applicare.");
+    };
+    reader.onerror = () => {
+      toast.error("❌ Errore nella lettura del file");
+    };
+    reader.readAsText(file);
+
+    // Reset input per permettere ricaricamento dello stesso file
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
+    }
+  };
+
+  return (
   <Transition appear show={isOpen} as={React.Fragment}>
     <Dialog as="div" className="relative z-50" onClose={onClose}>
       <Transition.Child
@@ -53,13 +94,27 @@ export const ExportModal: React.FC<ExportModalProps> = ({
               </Dialog.Title>
 
               <div className="space-y-6">
-                <div className="flex gap-3">
+                <div className="flex gap-3 flex-wrap">
                   <ModernButton variant="primary" onClick={onExport} icon={<HiDownload />}>
                     Aggiorna JSON
                   </ModernButton>
-                  <ModernButton variant="success" onClick={onImport} icon={<HiUpload />}>
-                    Importa JSON
+                  <ModernButton variant="success" onClick={handleDownloadJSON} icon={<HiDocumentText />}>
+                    Scarica File
                   </ModernButton>
+                  <ModernButton
+                    variant="secondary"
+                    onClick={() => fileInputRef.current?.click()}
+                    icon={<HiUpload />}
+                  >
+                    Carica File
+                  </ModernButton>
+                  <input
+                    ref={fileInputRef}
+                    type="file"
+                    accept=".json"
+                    onChange={handleUploadJSON}
+                    className="hidden"
+                  />
                   <ModernButton
                     variant="secondary"
                     onClick={() => {
@@ -71,6 +126,11 @@ export const ExportModal: React.FC<ExportModalProps> = ({
                     icon={<HiClipboard />}
                   >
                     Copia
+                  </ModernButton>
+                </div>
+                <div className="flex gap-3">
+                  <ModernButton variant="success" onClick={onImport} icon={<HiUpload />} className="w-full">
+                    Importa JSON (Applica Modifiche)
                   </ModernButton>
                 </div>
 
@@ -89,12 +149,23 @@ export const ExportModal: React.FC<ExportModalProps> = ({
                 <div className="flex items-start gap-4 p-6 bg-blue-100 rounded-2xl border-2 border-blue-300">
                   <HiSparkles className="text-3xl text-blue-600 flex-shrink-0" />
                   <div className="text-sm text-blue-800 font-semibold">
-                    <p className="font-black mb-2 text-lg">Come salvare:</p>
-                    <ol className="list-decimal list-inside space-y-1">
-                      <li>Clicca "Aggiorna JSON" per generare il salvataggio</li>
-                      <li>Copia il testo o salvalo in un file</li>
-                      <li>Per ripristinare: incolla il JSON e clicca "Importa JSON"</li>
-                    </ol>
+                    <p className="font-black mb-2 text-lg">Guida rapida:</p>
+                    <div className="space-y-3">
+                      <div>
+                        <p className="font-bold">📥 Salvataggio:</p>
+                        <ol className="list-decimal list-inside space-y-1 ml-2">
+                          <li>Clicca "Aggiorna JSON"</li>
+                          <li>Clicca "Scarica File" oppure "Copia" il testo</li>
+                        </ol>
+                      </div>
+                      <div>
+                        <p className="font-bold">📤 Ripristino:</p>
+                        <ol className="list-decimal list-inside space-y-1 ml-2">
+                          <li>Clicca "Carica File" oppure incolla il JSON nell'area di testo</li>
+                          <li>Clicca "Importa JSON (Applica Modifiche)"</li>
+                        </ol>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -110,4 +181,5 @@ export const ExportModal: React.FC<ExportModalProps> = ({
       </div>
     </Dialog>
   </Transition>
-);
+  );
+};

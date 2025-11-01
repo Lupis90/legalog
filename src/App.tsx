@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Toaster, toast } from "react-hot-toast";
 import { TournamentProvider, useTournamentContext } from "./context/TournamentContext";
 import { useTournament } from "./hooks/useTournament";
-import { Header, PlayersSection, GamesSection, CurrentRound, StandingsTable, Footer } from "./components/sections";
+import { Header, PlayersSection, GamesSection, CurrentRound, StandingsTable, Footer, TournamentTimeline } from "./components/sections";
 import { EditNameModal, ExportModal } from "./components/modals";
 import type { TableLetter } from "./types";
 
@@ -168,6 +168,13 @@ function AppContent() {
             onAdd={addGame}
           />
         </section>
+
+        {/* Tournament Timeline */}
+        <TournamentTimeline
+          totalRounds={4}
+          currentRoundIndex={currentRoundIndex}
+          completedRounds={rounds.length}
+        />
 
         {/* Current Round */}
         {currentRound && currentRoundIndex >= 0 && (

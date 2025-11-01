@@ -109,7 +109,9 @@ export function calculateBonuses(
           const pb = posOf[b];
           if (pa !== pb) {
             const winner = pa < pb ? a : b;
+            const loser = pa < pb ? b : a;
             perPlayerBonusRaw[winner] = (perPlayerBonusRaw[winner] || 0) + ARCINEMICO_BONUS;
+            perPlayerBonusRaw[loser] = (perPlayerBonusRaw[loser] || 0) - ARCINEMICO_BONUS;
           }
         }
       }

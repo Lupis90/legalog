@@ -23,7 +23,7 @@ export const Footer: React.FC = () => (
           <strong>Moltiplicatori:</strong> R1=×1, R2=×1, R3=×1.25, R4=×1.5
         </p>
         <p>
-          <strong>Bonus:</strong> Hot Streak (+1 alla 2ª vittoria consecutiva), Arcinemico (+1 al
+          <strong>Bonus:</strong> Hot Streak (+1 alla 2ª vittoria consecutiva), Arcinemico (+1/-1 al
           3° incontro), Cap totale +3
         </p>
         <p>
@@ -31,7 +31,7 @@ export const Footer: React.FC = () => (
         </p>
       </div>
       <p className="mt-6 text-xs text-slate-400 font-semibold">
-        LOG League Dashboard · Big-Game Flavor · Powered by React + Framer Motion
+        LOG League Dashboard · Big-Game Flavor · 2025
       </p>
     </GlassCard>
   </motion.footer>

@@ -61,7 +61,7 @@ The scoring system is complex and central to the application:
 
 3. **Bonus System** (capped at +3):
    - **Hot Streak**: +1 on second consecutive win (triggers once per tournament)
-   - **Arcinemico (Archenemy)**: +1 when facing same opponent 3+ times (winner gets bonus)
+   - **Arcinemico (Archenemy)**: +1/-1 when facing same opponent 3+ times (winner gets +1, loser gets -1)
 
 4. **Tie-breakers** for standings:
    - Total points

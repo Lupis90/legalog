@@ -1,0 +1,712 @@
+{
+  "players": [
+    {
+      "id": "olj1ehf0",
+      "name": "Francesco",
+      "total": 15,
+      "roundPoints": [
+        6,
+        2,
+        2.5,
+        4.5
+      ],
+      "wins": 1,
+      "gamesPlayed": [
+        "7 Wonders",
+        "Azul",
+        "Cities",
+        "Heat: Pedal to the Metal"
+      ],
+      "hotStreakTriggered": false,
+      "_lastWasWin": false
+    },
+    {
+      "id": "5n1elc7t",
+      "name": "Stefano",
+      "total": 16.25,
+      "roundPoints": [
+        4,
+        4,
+        3.75,
+        4.5
+      ],
+      "wins": 0,
+      "gamesPlayed": [
+        "7 Wonders",
+        "Azul",
+        "Harmonies",
+        "Ticket to Ride Europe"
+      ],
+      "hotStreakTriggered": false,
+      "_lastWasWin": false
+    },
+    {
+      "id": "wfaxctdj",
+      "name": "Carlo",
+      "total": 20.5,
+      "roundPoints": [
+        4,
+        3,
+        7.5,
+        6
+      ],
+      "wins": 1,
+      "gamesPlayed": [
+        "Splendor",
+        "Azul",
+        "Cities",
+        "Faraway"
+      ],
+      "hotStreakTriggered": false,
+      "_lastWasWin": false
+    },
+    {
+      "id": "kt5lxo72",
+      "name": "Sabino",
+      "total": 15.5,
+      "roundPoints": [
+        2.5,
+        3,
+        5,
+        5
+      ],
+      "wins": 0,
+      "gamesPlayed": [
+        "Splendor",
+        "7 Wonders",
+        "Ticket to Ride Europe",
+        "Heat: Pedal to the Metal"
+      ],
+      "hotStreakTriggered": false,
+      "_lastWasWin": false
+    },
+    {
+      "id": "9m43k9i5",
+      "name": "Angelo",
+      "total": 32.5,
+      "roundPoints": [
+        6,
+        7,
+        8.5,
+        11
+      ],
+      "wins": 4,
+      "gamesPlayed": [
+        "Splendor",
+        "Azul",
+        "Harmonies",
+        "Faraway"
+      ],
+      "hotStreakTriggered": true,
+      "_lastWasWin": true
+    },
+    {
+      "id": "zwzg82rg",
+      "name": "Carmine",
+      "total": 10,
+      "roundPoints": [
+        2,
+        3,
+        1.5,
+        3.5
+      ],
+      "wins": 0,
+      "gamesPlayed": [
+        "7 Wonders",
+        "Splendor",
+        "Heat: Pedal to the Metal",
+        "Cities"
+      ],
+      "hotStreakTriggered": false,
+      "_lastWasWin": false
+    },
+    {
+      "id": "wrjefiji",
+      "name": "Roberto",
+      "total": 14.5,
+      "roundPoints": [
+        6,
+        4,
+        1.5,
+        3
+      ],
+      "wins": 1,
+      "gamesPlayed": [
+        "Azul",
+        "Splendor",
+        "Harmonies",
+        "Ticket to Ride Europe"
+      ],
+      "hotStreakTriggered": false,
+      "_lastWasWin": false
+    },
+    {
+      "id": "bipt9b90",
+      "name": "Francesca DM",
+      "total": 13.75,
+      "roundPoints": [
+        4,
+        4,
+        3.75,
+        2
+      ],
+      "wins": 0,
+      "gamesPlayed": [
+        "Harmonies",
+        "7 Wonders",
+        "Cities",
+        "Heat: Pedal to the Metal"
+      ],
+      "hotStreakTriggered": false,
+      "_lastWasWin": false
+    },
+    {
+      "id": "woi36v4d",
+      "name": "Vincenzo",
+      "total": 19.75,
+      "roundPoints": [
+        3,
+        3,
+        3.75,
+        10
+      ],
+      "wins": 1,
+      "gamesPlayed": [
+        "Harmonies",
+        "Faraway",
+        "Ticket to Ride Europe",
+        "Cities"
+      ],
+      "hotStreakTriggered": false,
+      "_lastWasWin": true
+    },
+    {
+      "id": "b9ajlzb3",
+      "name": "Tiziana",
+      "total": 19,
+      "roundPoints": [
+        4,
+        6,
+        6,
+        3
+      ],
+      "wins": 1,
+      "gamesPlayed": [
+        "Azul",
+        "Splendor",
+        "Harmonies",
+        "Faraway"
+      ],
+      "hotStreakTriggered": false,
+      "_lastWasWin": false
+    },
+    {
+      "id": "ekrm1hz9",
+      "name": "Gerardo",
+      "total": 27.5,
+      "roundPoints": [
+        2,
+        6,
+        8.5,
+        11
+      ],
+      "wins": 3,
+      "gamesPlayed": [
+        "Harmonies",
+        "Faraway",
+        "Heat: Pedal to the Metal",
+        "Ticket to Ride Europe"
+      ],
+      "hotStreakTriggered": true,
+      "_lastWasWin": true
+    },
+    {
+      "id": "1wjs8v7o",
+      "name": "Marcello",
+      "total": 27.5,
+      "roundPoints": [
+        6,
+        2,
+        7.5,
+        12
+      ],
+      "wins": 3,
+      "gamesPlayed": [
+        "Harmonies",
+        "7 Wonders",
+        "Ticket to Ride Europe",
+        "Heat: Pedal to the Metal"
+      ],
+      "hotStreakTriggered": true,
+      "_lastWasWin": true
+    },
+    {
+      "id": "5qcj2rv5",
+      "name": "Mattia",
+      "total": 16,
+      "roundPoints": [
+        2,
+        4,
+        5,
+        5
+      ],
+      "wins": 0,
+      "gamesPlayed": [
+        "Azul",
+        "Faraway",
+        "Heat: Pedal to the Metal",
+        "Ticket to Ride Europe"
+      ],
+      "hotStreakTriggered": false,
+      "_lastWasWin": false
+    },
+    {
+      "id": "d8unbndm",
+      "name": "Sara",
+      "total": 9.5,
+      "roundPoints": [
+        3,
+        2,
+        2.5,
+        2
+      ],
+      "wins": 0,
+      "gamesPlayed": [
+        "Azul",
+        "Faraway",
+        "Ticket to Ride Europe",
+        "Cities"
+      ],
+      "hotStreakTriggered": false,
+      "_lastWasWin": false
+    },
+    {
+      "id": "rrbbgsn0",
+      "name": "Leo",
+      "total": 17,
+      "roundPoints": [
+        2.5,
+        6,
+        5,
+        3.5
+      ],
+      "wins": 1,
+      "gamesPlayed": [
+        "Splendor",
+        "7 Wonders",
+        "Cities",
+        "Faraway"
+      ],
+      "hotStreakTriggered": false,
+      "_lastWasWin": false
+    },
+    {
+      "id": "2rw7ixk4",
+      "name": "Alfonso",
+      "total": 16.75,
+      "roundPoints": [
+        3,
+        2,
+        4.75,
+        7
+      ],
+      "wins": 0,
+      "gamesPlayed": [
+        "7 Wonders",
+        "Splendor",
+        "Heat: Pedal to the Metal",
+        "Cities"
+      ],
+      "hotStreakTriggered": false,
+      "_lastWasWin": false
+    }
+  ],
+  "games": [
+    {
+      "title": "7 Wonders",
+      "weight": 2.29,
+      "duration": "30 min"
+    },
+    {
+      "title": "Splendor",
+      "weight": 1.78,
+      "duration": "30 min"
+    },
+    {
+      "title": "Azul",
+      "weight": 1.77,
+      "duration": "45 min"
+    },
+    {
+      "title": "Harmonies",
+      "weight": 2.01,
+      "duration": "45 min"
+    },
+    {
+      "title": "Faraway",
+      "weight": 1.91,
+      "duration": "30 min"
+    },
+    {
+      "title": "Cities",
+      "weight": 1.92,
+      "duration": "45 min"
+    },
+    {
+      "title": "Heat: Pedal to the Metal",
+      "weight": 2.2,
+      "duration": "45 min"
+    },
+    {
+      "title": "Ticket to Ride Europe",
+      "weight": 1.92,
+      "duration": "45 min"
+    }
+  ],
+  "rounds": [
+    {
+      "index": 1,
+      "tables": [
+        {
+          "table": "A",
+          "game": "7 Wonders",
+          "players": [
+            "olj1ehf0",
+            "5n1elc7t",
+            "zwzg82rg",
+            "2rw7ixk4"
+          ],
+          "positions": {
+            "olj1ehf0": 1,
+            "5n1elc7t": 2,
+            "zwzg82rg": 4,
+            "2rw7ixk4": 3
+          }
+        },
+        {
+          "table": "B",
+          "game": "Splendor",
+          "players": [
+            "rrbbgsn0",
+            "9m43k9i5",
+            "wfaxctdj",
+            "kt5lxo72"
+          ],
+          "positions": {
+            "rrbbgsn0": 3,
+            "9m43k9i5": 1,
+            "wfaxctdj": 2,
+            "kt5lxo72": 3
+          }
+        },
+        {
+          "table": "C",
+          "game": "Azul",
+          "players": [
+            "b9ajlzb3",
+            "d8unbndm",
+            "5qcj2rv5",
+            "wrjefiji"
+          ],
+          "positions": {
+            "b9ajlzb3": 2,
+            "d8unbndm": 3,
+            "5qcj2rv5": 4,
+            "wrjefiji": 1
+          }
+        },
+        {
+          "table": "D",
+          "game": "Harmonies",
+          "players": [
+            "bipt9b90",
+            "woi36v4d",
+            "1wjs8v7o",
+            "ekrm1hz9"
+          ],
+          "positions": {
+            "bipt9b90": 2,
+            "woi36v4d": 3,
+            "1wjs8v7o": 1,
+            "ekrm1hz9": 4
+          }
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "tables": [
+        {
+          "table": "A",
+          "game": "Azul",
+          "players": [
+            "olj1ehf0",
+            "5n1elc7t",
+            "9m43k9i5",
+            "wfaxctdj"
+          ],
+          "positions": {
+            "olj1ehf0": 4,
+            "5n1elc7t": 2,
+            "9m43k9i5": 1,
+            "wfaxctdj": 3
+          }
+        },
+        {
+          "table": "B",
+          "game": "Splendor",
+          "players": [
+            "zwzg82rg",
+            "2rw7ixk4",
+            "wrjefiji",
+            "b9ajlzb3"
+          ],
+          "positions": {
+            "zwzg82rg": 3,
+            "2rw7ixk4": 4,
+            "wrjefiji": 2,
+            "b9ajlzb3": 1
+          }
+        },
+        {
+          "table": "C",
+          "game": "7 Wonders",
+          "players": [
+            "kt5lxo72",
+            "rrbbgsn0",
+            "1wjs8v7o",
+            "bipt9b90"
+          ],
+          "positions": {
+            "kt5lxo72": 3,
+            "rrbbgsn0": 1,
+            "1wjs8v7o": 4,
+            "bipt9b90": 2
+          }
+        },
+        {
+          "table": "D",
+          "game": "Faraway",
+          "players": [
+            "5qcj2rv5",
+            "d8unbndm",
+            "ekrm1hz9",
+            "woi36v4d"
+          ],
+          "positions": {
+            "5qcj2rv5": 2,
+            "d8unbndm": 4,
+            "ekrm1hz9": 1,
+            "woi36v4d": 3
+          }
+        }
+      ]
+    },
+    {
+      "index": 3,
+      "tables": [
+        {
+          "table": "A",
+          "game": "Harmonies",
+          "players": [
+            "9m43k9i5",
+            "5n1elc7t",
+            "b9ajlzb3",
+            "wrjefiji"
+          ],
+          "positions": {
+            "9m43k9i5": 1,
+            "5n1elc7t": 3,
+            "b9ajlzb3": 2,
+            "wrjefiji": 4
+          }
+        },
+        {
+          "table": "B",
+          "game": "Cities",
+          "players": [
+            "olj1ehf0",
+            "wfaxctdj",
+            "rrbbgsn0",
+            "bipt9b90"
+          ],
+          "positions": {
+            "olj1ehf0": 4,
+            "wfaxctdj": 1,
+            "rrbbgsn0": 2,
+            "bipt9b90": 3
+          }
+        },
+        {
+          "table": "C",
+          "game": "Heat: Pedal to the Metal",
+          "players": [
+            "2rw7ixk4",
+            "zwzg82rg",
+            "ekrm1hz9",
+            "5qcj2rv5"
+          ],
+          "positions": {
+            "2rw7ixk4": 3,
+            "zwzg82rg": 4,
+            "ekrm1hz9": 1,
+            "5qcj2rv5": 2
+          }
+        },
+        {
+          "table": "D",
+          "game": "Ticket to Ride Europe",
+          "players": [
+            "1wjs8v7o",
+            "kt5lxo72",
+            "d8unbndm",
+            "woi36v4d"
+          ],
+          "positions": {
+            "1wjs8v7o": 1,
+            "kt5lxo72": 2,
+            "d8unbndm": 4,
+            "woi36v4d": 3
+          }
+        }
+      ]
+    },
+    {
+      "index": 4,
+      "tables": [
+        {
+          "table": "A",
+          "game": "Faraway",
+          "players": [
+            "9m43k9i5",
+            "b9ajlzb3",
+            "wfaxctdj",
+            "rrbbgsn0"
+          ],
+          "positions": {
+            "9m43k9i5": 1,
+            "b9ajlzb3": 4,
+            "wfaxctdj": 2,
+            "rrbbgsn0": 3
+          }
+        },
+        {
+          "table": "B",
+          "game": "Ticket to Ride Europe",
+          "players": [
+            "wrjefiji",
+            "5n1elc7t",
+            "ekrm1hz9",
+            "5qcj2rv5"
+          ],
+          "positions": {
+            "wrjefiji": 4,
+            "5n1elc7t": 3,
+            "ekrm1hz9": 1,
+            "5qcj2rv5": 2
+          }
+        },
+        {
+          "table": "C",
+          "game": "Heat: Pedal to the Metal",
+          "players": [
+            "olj1ehf0",
+            "bipt9b90",
+            "1wjs8v7o",
+            "kt5lxo72"
+          ],
+          "positions": {
+            "olj1ehf0": 3,
+            "bipt9b90": 4,
+            "1wjs8v7o": 1,
+            "kt5lxo72": 2
+          }
+        },
+        {
+          "table": "D",
+          "game": "Cities",
+          "players": [
+            "zwzg82rg",
+            "2rw7ixk4",
+            "d8unbndm",
+            "woi36v4d"
+          ],
+          "positions": {
+            "zwzg82rg": 3,
+            "2rw7ixk4": 2,
+            "d8unbndm": 4,
+            "woi36v4d": 1
+          }
+        }
+      ]
+    }
+  ],
+  "meetingsMap": {
+    "5n1elc7t|olj1ehf0": 2,
+    "olj1ehf0|zwzg82rg": 1,
+    "2rw7ixk4|olj1ehf0": 1,
+    "5n1elc7t|zwzg82rg": 1,
+    "2rw7ixk4|5n1elc7t": 1,
+    "2rw7ixk4|zwzg82rg": 4,
+    "9m43k9i5|rrbbgsn0": 2,
+    "rrbbgsn0|wfaxctdj": 3,
+    "kt5lxo72|rrbbgsn0": 2,
+    "9m43k9i5|wfaxctdj": 3,
+    "9m43k9i5|kt5lxo72": 1,
+    "kt5lxo72|wfaxctdj": 1,
+    "b9ajlzb3|d8unbndm": 1,
+    "5qcj2rv5|b9ajlzb3": 1,
+    "b9ajlzb3|wrjefiji": 3,
+    "5qcj2rv5|d8unbndm": 2,
+    "d8unbndm|wrjefiji": 1,
+    "5qcj2rv5|wrjefiji": 2,
+    "bipt9b90|woi36v4d": 1,
+    "1wjs8v7o|bipt9b90": 3,
+    "bipt9b90|ekrm1hz9": 1,
+    "1wjs8v7o|woi36v4d": 2,
+    "ekrm1hz9|woi36v4d": 2,
+    "1wjs8v7o|ekrm1hz9": 1,
+    "9m43k9i5|olj1ehf0": 1,
+    "olj1ehf0|wfaxctdj": 2,
+    "5n1elc7t|9m43k9i5": 2,
+    "5n1elc7t|wfaxctdj": 1,
+    "wrjefiji|zwzg82rg": 1,
+    "b9ajlzb3|zwzg82rg": 1,
+    "2rw7ixk4|wrjefiji": 1,
+    "2rw7ixk4|b9ajlzb3": 1,
+    "1wjs8v7o|kt5lxo72": 3,
+    "bipt9b90|kt5lxo72": 2,
+    "1wjs8v7o|rrbbgsn0": 1,
+    "bipt9b90|rrbbgsn0": 2,
+    "5qcj2rv5|ekrm1hz9": 3,
+    "5qcj2rv5|woi36v4d": 1,
+    "d8unbndm|ekrm1hz9": 1,
+    "d8unbndm|woi36v4d": 3,
+    "9m43k9i5|b9ajlzb3": 2,
+    "9m43k9i5|wrjefiji": 1,
+    "5n1elc7t|b9ajlzb3": 1,
+    "5n1elc7t|wrjefiji": 2,
+    "olj1ehf0|rrbbgsn0": 1,
+    "bipt9b90|olj1ehf0": 2,
+    "bipt9b90|wfaxctdj": 1,
+    "2rw7ixk4|ekrm1hz9": 1,
+    "2rw7ixk4|5qcj2rv5": 1,
+    "ekrm1hz9|zwzg82rg": 1,
+    "5qcj2rv5|zwzg82rg": 1,
+    "1wjs8v7o|d8unbndm": 1,
+    "d8unbndm|kt5lxo72": 1,
+    "kt5lxo72|woi36v4d": 1,
+    "b9ajlzb3|wfaxctdj": 1,
+    "b9ajlzb3|rrbbgsn0": 1,
+    "ekrm1hz9|wrjefiji": 1,
+    "5n1elc7t|ekrm1hz9": 1,
+    "5n1elc7t|5qcj2rv5": 1,
+    "1wjs8v7o|olj1ehf0": 1,
+    "kt5lxo72|olj1ehf0": 1,
+    "d8unbndm|zwzg82rg": 1,
+    "woi36v4d|zwzg82rg": 1,
+    "2rw7ixk4|d8unbndm": 1,
+    "2rw7ixk4|woi36v4d": 1
+  },
+  "activeRound": 0
+}

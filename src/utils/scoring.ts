@@ -93,13 +93,16 @@ export function calculateBonuses(
 ): Record<string, number> {
   const perPlayerBonusRaw: Record<string, number> = {};
 
+  // Track if player has already received Arcinemico bonus this round (max ±1 per round)
+  const archnemicoApplied: Record<string, boolean> = {};
+
   tables.forEach((table) => {
     const posOf: Record<string, number> = {};
     table.players.forEach((pid) => {
       posOf[pid] = table.positions[pid]!;
     });
 
-    // Arcinemico bonus (3rd meeting)
+    // Arcinemico bonus (3rd meeting) - max ±1 per player per round
     for (let i = 0; i < table.players.length; i++) {
       for (let j = i + 1; j < table.players.length; j++) {
         const a = table.players[i];
@@ -113,8 +116,16 @@ export function calculateBonuses(
           if (pa !== pb) {
             const winner = pa < pb ? a : b;
             const loser = pa < pb ? b : a;
-            perPlayerBonusRaw[winner] = (perPlayerBonusRaw[winner] || 0) + ARCINEMICO_BONUS;
-            perPlayerBonusRaw[loser] = (perPlayerBonusRaw[loser] || 0) - ARCINEMICO_BONUS;
+
+            // Apply bonus only if not already applied this round
+            if (!archnemicoApplied[winner]) {
+              perPlayerBonusRaw[winner] = (perPlayerBonusRaw[winner] || 0) + ARCINEMICO_BONUS;
+              archnemicoApplied[winner] = true;
+            }
+            if (!archnemicoApplied[loser]) {
+              perPlayerBonusRaw[loser] = (perPlayerBonusRaw[loser] || 0) - ARCINEMICO_BONUS;
+              archnemicoApplied[loser] = true;
+            }
           }
         }
       }

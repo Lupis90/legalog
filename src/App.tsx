@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Toaster, toast } from "react-hot-toast";
 import { TournamentProvider, useTournamentContext } from "./context/TournamentContext";
 import { useTournament } from "./hooks/useTournament";
-import { Header, PlayersSection, GamesSection, CurrentRound, StandingsTable, Footer, TournamentTimeline } from "./components/sections";
+import { Header, PlayersSection, GamesSection, CurrentRound, StandingsTable, Footer, TournamentTimeline, RoundsHistory } from "./components/sections";
 import { EditNameModal, ExportModal } from "./components/modals";
 import type { TableLetter } from "./types";
 
@@ -191,6 +191,9 @@ function AppContent() {
             onFinalize={finalizeRound}
           />
         )}
+
+        {/* Rounds History */}
+        {rounds.length > 0 && <RoundsHistory rounds={rounds} playerMap={playerMap} />}
 
         {/* Standings */}
         <StandingsTable standings={standings} onEditName={openEditPlayerModal} />

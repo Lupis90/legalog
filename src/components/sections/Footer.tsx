@@ -17,7 +17,7 @@ export const Footer: React.FC = () => (
       </div>
       <div className="text-sm text-slate-600 leading-relaxed space-y-2 font-medium">
         <p>
-          <strong>Punteggi base:</strong> 7-5-3-1 (4p), 7-4-2 (3p)
+          <strong>Punteggi base:</strong> 6-4-3-2 (4p), 6-4-2 (3p)
         </p>
         <p>
           <strong>Moltiplicatori:</strong> R1=×1, R2=×1, R3=×1.25, R4=×1.5

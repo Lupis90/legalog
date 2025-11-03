@@ -5,3 +5,4 @@ export { CurrentRound } from "./CurrentRound";
 export { StandingsTable } from "./StandingsTable";
 export { Footer } from "./Footer";
 export { TournamentTimeline } from "./TournamentTimeline";
+export { RoundsHistory } from "./RoundsHistory";

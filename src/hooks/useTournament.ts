@@ -173,11 +173,6 @@ export function useTournament() {
         const isWin = table.positions[pid]! === 1;
         if (isWin) nextPlayers[i].wins += 1;
 
-        const prevWasWin = (playerMap[pid] as any)._lastWasWin === true;
-        if (isWin && prevWasWin && !nextPlayers[i].hotStreakTriggered) {
-          nextPlayers[i].hotStreakTriggered = true;
-        }
-
         (nextPlayers[i] as any)._lastWasWin = isWin;
 
         if (table.game && !nextPlayers[i].gamesPlayed.includes(table.game)) {

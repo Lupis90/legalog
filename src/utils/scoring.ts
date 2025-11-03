@@ -1,4 +1,4 @@
-import { BASE_POINTS_3, BASE_POINTS_4, MAX_BONUS_POINTS, HOT_STREAK_BONUS, ARCINEMICO_BONUS, ARCINEMICO_THRESHOLD } from "../constants";
+import { BASE_POINTS_3, BASE_POINTS_4, BASE_POINTS_5, MAX_BONUS_POINTS, HOT_STREAK_BONUS, ARCINEMICO_BONUS, ARCINEMICO_THRESHOLD } from "../constants";
 import type { Player, TableResult } from "../types";
 import { keyPair } from "./helpers";
 
@@ -11,13 +11,16 @@ import { keyPair } from "./helpers";
  * Handles ties by averaging points
  */
 export function basePointsForPositions(size: number, posNumbers: number[]): number {
+  let table: any;
+
   if (size === 5) {
-    const SCALE_5 = { 1: 8, 2: 6, 3: 4, 4: 2, 5: 1 } as const;
-    const sum = posNumbers.reduce((acc, p) => acc + (SCALE_5 as any)[p], 0);
-    return sum / posNumbers.length;
+    table = BASE_POINTS_5;
+  } else if (size === 3) {
+    table = BASE_POINTS_3;
+  } else {
+    table = BASE_POINTS_4;
   }
 
-  const table = size === 3 ? (BASE_POINTS_3 as any) : (BASE_POINTS_4 as any);
   const sum = posNumbers.reduce((acc, p) => acc + (table[p] ?? 0), 0);
   return sum / posNumbers.length;
 }
@@ -44,7 +47,7 @@ export function calculateBasePoints(
     // Calculate base points for each group (handles ties)
     Object.entries(groups).forEach(([posStr, ids]) => {
       const p = parseInt(posStr, 10);
-      const positionsRange = ids.map(() => p);
+      const positionsRange = Array.from({ length: ids.length }, (_, i) => p + i);
       const base = basePointsForPositions(size, positionsRange);
       ids.forEach((pid) => {
         perPlayerRoundBase[pid] = base;
@@ -124,7 +127,7 @@ export function calculateBonuses(
       const prevRounds = pl.roundPoints.length;
       const wonPrev = prevRounds > 0 && (pl as any)._lastWasWin === true;
 
-      if (won && wonPrev && !pl.hotStreakTriggered) {
+      if (won && wonPrev) {
         perPlayerBonusRaw[pid] = (perPlayerBonusRaw[pid] || 0) + HOT_STREAK_BONUS;
       }
     });

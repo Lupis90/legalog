@@ -52,8 +52,8 @@ The entire application is contained in [legalog/src/App.tsx](legalog/src/App.tsx
 The scoring system is complex and central to the application:
 
 1. **Base Points**: Determined by table size and position
-   - 4 players: 7-5-3-1 (1st-4th)
-   - 3 players: 7-4-2 (1st-3rd)
+   - 4 players: 6-4-3-2 (1st-4th)
+   - 3 players: 6-4-2 (1st-3rd)
    - Ties are handled by averaging base points across tied positions
 
 2. **Multipliers**: Applied by round

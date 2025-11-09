@@ -74,16 +74,24 @@ export function calculateStandings(
   const sos = calculateSOS(rounds, playerMap);
   const h2h = calculateH2H(rounds);
 
-  const rows = players.map((p) => ({
-    id: p.id,
-    name: p.name,
-    total: p.total,
-    wins: p.wins,
-    sos: Number((sos[p.id] || 0).toFixed(2)),
-    h2h: h2h[p.id] || {},
-    rounds: p.roundPoints,
-    games: p.gamesPlayed,
-  }));
+  const rows = players.map((p) => {
+    // Calculate round scores with manual adjustments applied
+    const roundScoresWithAdjustments = p.roundPoints.map((baseScore, idx) => {
+      const adjustment = p.manualAdjustments?.[idx] || 0;
+      return baseScore + adjustment;
+    });
+
+    return {
+      id: p.id,
+      name: p.name,
+      total: p.total,
+      wins: p.wins,
+      sos: Number((sos[p.id] || 0).toFixed(2)),
+      h2h: h2h[p.id] || {},
+      rounds: roundScoresWithAdjustments,
+      games: p.gamesPlayed,
+    };
+  });
 
   // Sort with tie-breakers: total → SOS → wins → H2H → name
   rows.sort((a, b) => {

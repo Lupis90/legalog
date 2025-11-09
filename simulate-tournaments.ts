@@ -101,7 +101,7 @@ function generateRandomPositions(playerIds: number[]): Record<number, number> {
 
 function calculateBasePoints(position: number, tableSize: number): number {
   if (tableSize === 4) {
-    const points = [6, 4, 3, 2];
+    const points = [7, 5, 4, 2];
     return points[position - 1] || 0;
   } else if (tableSize === 3) {
     const points = [6, 4, 2];
@@ -111,8 +111,8 @@ function calculateBasePoints(position: number, tableSize: number): number {
 }
 
 function getRoundMultiplier(round: number): number {
-  if (round === 3) return 1.25;
-  if (round === 4) return 1.5;
+  if (round === 3) return 1.15;
+  if (round === 4) return 1.3;
   return 1;
 }
 

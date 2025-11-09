@@ -13,6 +13,7 @@ export type Player = {
   wins: number;
   gamesPlayed: string[];
   hotStreakTriggered: boolean;
+  manualAdjustments?: Record<number, number>; // roundIndex -> adjustment value
 };
 
 export type TableResult = {

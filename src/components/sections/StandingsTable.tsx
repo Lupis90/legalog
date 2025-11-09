@@ -1,15 +1,25 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { FaTrophy } from "react-icons/fa";
 import { HiPencil } from "react-icons/hi";
+import { FaCalculator } from "react-icons/fa";
 import { GlassCard } from "../ui";
-import type { StandingRow } from "../../types";
+import type { StandingRow, Player } from "../../types";
 
 interface StandingsTableProps {
   standings: StandingRow[];
+  playerMap: Record<string, Player>;
   onEditName: (playerId: string) => void;
+  onEditScores: (playerId: string) => void;
 }
 
-export const StandingsTable: React.FC<StandingsTableProps> = ({ standings, onEditName }) => (
+export const StandingsTable: React.FC<StandingsTableProps> = ({ standings, playerMap, onEditName, onEditScores }) => {
+  // Helper to check if a player has manual adjustments
+  const hasManualAdjustments = (playerId: string) => {
+    const player = playerMap[playerId];
+    return player?.manualAdjustments && Object.keys(player.manualAdjustments).length > 0;
+  };
+
+  return (
   <section className="mb-12">
     <div className="flex items-center gap-4 mb-8">
       <div className="p-4 bg-gradient-to-br from-yellow-400 to-amber-500 rounded-2xl shadow-xl">
@@ -77,28 +87,53 @@ export const StandingsTable: React.FC<StandingsTableProps> = ({ standings, onEdi
                     <td className="px-6 py-5">
                       <div className="flex items-center gap-3">
                         <div className="font-black text-slate-800 text-lg">{row.name}</div>
-                        <motion.button
-                          whileHover={{ scale: 1.1 }}
-                          whileTap={{ scale: 0.9 }}
-                          onClick={() => onEditName(row.id)}
-                          className="p-2 rounded-lg bg-indigo-100 hover:bg-indigo-200 text-indigo-600 transition-colors"
-                          title="Modifica nome"
-                        >
-                          <HiPencil className="text-lg" />
-                        </motion.button>
+                        <div className="flex items-center gap-2">
+                          <motion.button
+                            whileHover={{ scale: 1.1 }}
+                            whileTap={{ scale: 0.9 }}
+                            onClick={() => onEditName(row.id)}
+                            className="p-2 rounded-lg bg-indigo-100 hover:bg-indigo-200 text-indigo-600 transition-colors"
+                            title="Modifica nome"
+                          >
+                            <HiPencil className="text-lg" />
+                          </motion.button>
+                          <motion.button
+                            whileHover={{ scale: 1.1 }}
+                            whileTap={{ scale: 0.9 }}
+                            onClick={() => onEditScores(row.id)}
+                            className={`p-2 rounded-lg transition-colors ${
+                              hasManualAdjustments(row.id)
+                                ? 'bg-amber-100 hover:bg-amber-200 text-amber-600'
+                                : 'bg-purple-100 hover:bg-purple-200 text-purple-600'
+                            }`}
+                            title="Modifica punteggi"
+                          >
+                            <FaCalculator className="text-lg" />
+                          </motion.button>
+                        </div>
                       </div>
                     </td>
                     <td className="px-6 py-5 text-right">
-                      <div
-                        className={`inline-flex items-center px-4 py-2 rounded-xl font-black text-lg shadow-lg ${
-                          isPodium
-                            ? "bg-gradient-to-r from-yellow-400 to-amber-500 text-white"
-                            : isTopTable
-                            ? "bg-gradient-to-r from-emerald-400 to-teal-500 text-white"
-                            : "bg-slate-200 text-slate-700"
-                        }`}
-                      >
-                        {row.total.toFixed(2)}
+                      <div className="flex items-center justify-end gap-2">
+                        <div
+                          className={`inline-flex items-center px-4 py-2 rounded-xl font-black text-lg shadow-lg ${
+                            isPodium
+                              ? "bg-gradient-to-r from-yellow-400 to-amber-500 text-white"
+                              : isTopTable
+                              ? "bg-gradient-to-r from-emerald-400 to-teal-500 text-white"
+                              : "bg-slate-200 text-slate-700"
+                          }`}
+                        >
+                          {row.total.toFixed(2)}
+                        </div>
+                        {hasManualAdjustments(row.id) && (
+                          <div
+                            className="px-2 py-1 bg-amber-200 text-amber-800 rounded-lg text-xs font-bold border-2 border-amber-400"
+                            title="Punteggio modificato manualmente"
+                          >
+                            ✏️
+                          </div>
+                        )}
                       </div>
                     </td>
                     <td className="px-6 py-5 text-right">
@@ -110,19 +145,33 @@ export const StandingsTable: React.FC<StandingsTableProps> = ({ standings, onEdi
                         <FaTrophy className="text-blue-500 text-xl" />
                       </div>
                     </td>
-                    {[0, 1, 2, 3].map((idx) => (
-                      <td key={idx} className="px-6 py-5 text-center">
-                        <span
-                          className={`inline-block px-3 py-1.5 rounded-xl text-sm font-bold ${
-                            row.rounds[idx] != null
-                              ? "bg-indigo-100 text-indigo-700 border-2 border-indigo-300"
-                              : "text-slate-300"
-                          }`}
-                        >
-                          {row.rounds[idx] != null ? row.rounds[idx].toFixed(2) : "—"}
-                        </span>
-                      </td>
-                    ))}
+                    {[0, 1, 2, 3].map((idx) => {
+                      const player = playerMap[row.id];
+                      const hasAdjustment = player?.manualAdjustments?.[idx] !== undefined && player?.manualAdjustments?.[idx] !== 0;
+
+                      return (
+                        <td key={idx} className="px-6 py-5 text-center">
+                          <div className="flex items-center justify-center gap-1">
+                            <span
+                              className={`inline-block px-3 py-1.5 rounded-xl text-sm font-bold ${
+                                row.rounds[idx] != null
+                                  ? hasAdjustment
+                                    ? "bg-amber-100 text-amber-700 border-2 border-amber-400"
+                                    : "bg-indigo-100 text-indigo-700 border-2 border-indigo-300"
+                                  : "text-slate-300"
+                              }`}
+                            >
+                              {row.rounds[idx] != null ? row.rounds[idx].toFixed(2) : "—"}
+                            </span>
+                            {hasAdjustment && (
+                              <span className="text-xs" title="Punteggio modificato manualmente">
+                                ✏️
+                              </span>
+                            )}
+                          </div>
+                        </td>
+                      );
+                    })}
                     <td className="px-6 py-5">
                       <div className="flex flex-wrap gap-2 max-w-xs">
                         {row.games.map((game, idx) => (
@@ -161,4 +210,5 @@ export const StandingsTable: React.FC<StandingsTableProps> = ({ standings, onEdi
       </div>
     </GlassCard>
   </section>
-);
+  );
+};

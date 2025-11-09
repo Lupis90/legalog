@@ -3,7 +3,7 @@ import { Toaster, toast } from "react-hot-toast";
 import { TournamentProvider, useTournamentContext } from "./context/TournamentContext";
 import { useTournament } from "./hooks/useTournament";
 import { Header, PlayersSection, GamesSection, CurrentRound, StandingsTable, Footer, TournamentTimeline, RoundsHistory } from "./components/sections";
-import { EditNameModal, ExportModal } from "./components/modals";
+import { EditNameModal, EditScoresModal, ExportModal } from "./components/modals";
 import type { TableLetter } from "./types";
 
 /**
@@ -23,6 +23,7 @@ function AppContent() {
     addPlayer,
     removeLastPlayer,
     updatePlayerName,
+    setManualAdjustments,
     updateGame,
     removeGame,
     addGame,
@@ -39,7 +40,9 @@ function AppContent() {
   const [jsonIO, setJsonIO] = useState<string>("");
   const [showExportModal, setShowExportModal] = useState(false);
   const [showEditNameModal, setShowEditNameModal] = useState(false);
+  const [showEditScoresModal, setShowEditScoresModal] = useState(false);
   const [editingPlayer, setEditingPlayer] = useState<{ id: string; name: string } | null>(null);
+  const [editingScoresPlayerId, setEditingScoresPlayerId] = useState<string | null>(null);
 
   function handleExportJSON() {
     const data = exportData();
@@ -104,6 +107,16 @@ function AppContent() {
     setShowEditNameModal(false);
     setEditingPlayer(null);
     toast.success("Nome aggiornato!");
+  }
+
+  function openEditScoresModal(playerId: string) {
+    setEditingScoresPlayerId(playerId);
+    setShowEditScoresModal(true);
+  }
+
+  function saveManualAdjustments(playerId: string, adjustments: Record<number, number>) {
+    setManualAdjustments(playerId, adjustments);
+    toast.success("Punteggi aggiornati!");
   }
 
   function handleSuggestGame(roundIndex: number, table: TableLetter, playerIds: string[]) {
@@ -196,7 +209,12 @@ function AppContent() {
         {rounds.length > 0 && <RoundsHistory rounds={rounds} playerMap={playerMap} />}
 
         {/* Standings */}
-        <StandingsTable standings={standings} onEditName={openEditPlayerModal} />
+        <StandingsTable
+          standings={standings}
+          playerMap={playerMap}
+          onEditName={openEditPlayerModal}
+          onEditScores={openEditScoresModal}
+        />
 
         {/* Footer */}
         <Footer />
@@ -209,6 +227,13 @@ function AppContent() {
         onClose={() => setShowEditNameModal(false)}
         onNameChange={(name) => setEditingPlayer(editingPlayer ? { ...editingPlayer, name } : null)}
         onSave={savePlayerName}
+      />
+
+      <EditScoresModal
+        isOpen={showEditScoresModal}
+        player={editingScoresPlayerId ? playerMap[editingScoresPlayerId] : null}
+        onClose={() => setShowEditScoresModal(false)}
+        onSave={saveManualAdjustments}
       />
 
       <ExportModal

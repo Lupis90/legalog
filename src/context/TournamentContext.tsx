@@ -30,6 +30,7 @@ interface TournamentContextType {
   updatePlayerName: (id: string, name: string) => void;
   addPlayer: () => void;
   removeLastPlayer: () => void;
+  setManualAdjustments: (playerId: string, adjustments: Record<number, number>) => void;
 
   // Game actions
   setGames: React.Dispatch<React.SetStateAction<Game[]>>;
@@ -196,6 +197,25 @@ export function TournamentProvider({ children }: { children: ReactNode }) {
     setPlayers((ps) => ps.map((p) => (p.id === id ? { ...p, name } : p)));
   };
 
+  const setManualAdjustments = (playerId: string, adjustments: Record<number, number>) => {
+    setPlayers((ps) => ps.map((p) => {
+      if (p.id !== playerId) return p;
+
+      // Calculate total adjustment
+      const totalAdjustment = Object.values(adjustments).reduce((sum, val) => sum + val, 0);
+
+      // Recalculate total by adding adjustments to base total
+      const baseTotal = p.roundPoints.reduce((sum, pts) => sum + pts, 0);
+      const newTotal = baseTotal + totalAdjustment;
+
+      return {
+        ...p,
+        manualAdjustments: Object.keys(adjustments).length > 0 ? adjustments : undefined,
+        total: Number(newTotal.toFixed(2)),
+      };
+    }));
+  };
+
   // Game actions
   const updateGame = (index: number, field: keyof Game, value: string | number) => {
     setGames((gs) => gs.map((g, idx) => (idx === index ? { ...g, [field]: value } : g)));
@@ -281,6 +301,7 @@ export function TournamentProvider({ children }: { children: ReactNode }) {
     updatePlayerName,
     addPlayer,
     removeLastPlayer,
+    setManualAdjustments,
     setGames,
     updateGame,
     removeGame,

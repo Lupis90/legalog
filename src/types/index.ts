@@ -44,3 +44,23 @@ export type StandingRow = {
   rounds: number[];
   games: string[];
 };
+
+export type ScoringConfig = {
+  basePoints: {
+    1: number;
+    2: number;
+    3: number;
+    4: number;
+  };
+  multipliers: {
+    1: number;
+    2: number;
+    3: number;
+    4: number;
+  };
+  bonuses: {
+    hotStreak: number;
+    arcinemico: number;
+    maxBonus: number;
+  };
+};

@@ -1,7 +1,7 @@
 import { createContext, useContext, useState, useMemo, useEffect, useRef } from "react";
 import type { ReactNode } from "react";
-import type { Player, Game, RoundData, TableLetter, StandingRow } from "../types";
-import { DEFAULT_GAMES } from "../constants";
+import type { Player, Game, RoundData, TableLetter, StandingRow, ScoringConfig } from "../types";
+import { DEFAULT_GAMES, BASE_POINTS_4, MULTIPLIER, HOT_STREAK_BONUS, ARCINEMICO_BONUS, MAX_BONUS_POINTS } from "../constants";
 import { uid, deepClone } from "../utils/helpers";
 import { calculateStandings } from "../utils/standings";
 
@@ -18,6 +18,7 @@ interface TournamentContextType {
   rounds: RoundData[];
   activeRound: 0 | 1 | 2 | 3 | 4;
   meetingsMap: Record<string, number>;
+  scoringConfig: ScoringConfig;
 
   // Derived state
   playerMap: Record<string, Player>;
@@ -42,12 +43,13 @@ interface TournamentContextType {
   setRounds: React.Dispatch<React.SetStateAction<RoundData[]>>;
   setActiveRound: React.Dispatch<React.SetStateAction<0 | 1 | 2 | 3 | 4>>;
   setMeetingsMap: React.Dispatch<React.SetStateAction<Record<string, number>>>;
+  setScoringConfig: React.Dispatch<React.SetStateAction<ScoringConfig>>;
   updatePosition: (roundIndex: number, table: TableLetter, playerId: string, position: number | null) => void;
   setGameForTable: (roundIndex: number, table: TableLetter, gameTitle: string) => void;
 
   // Import/Export
-  exportData: () => { players: Player[]; games: Game[]; rounds: RoundData[]; meetingsMap: Record<string, number>; activeRound: 0 | 1 | 2 | 3 | 4 };
-  importData: (data: { players: Player[]; games: Game[]; rounds: RoundData[]; meetingsMap?: Record<string, number>; activeRound?: 0 | 1 | 2 | 3 | 4 }) => void;
+  exportData: () => { players: Player[]; games: Game[]; rounds: RoundData[]; meetingsMap: Record<string, number>; activeRound: 0 | 1 | 2 | 3 | 4; scoringConfig: ScoringConfig };
+  importData: (data: { players: Player[]; games: Game[]; rounds: RoundData[]; meetingsMap?: Record<string, number>; activeRound?: 0 | 1 | 2 | 3 | 4; scoringConfig?: ScoringConfig }) => void;
 
   // LocalStorage
   clearSavedData: () => void;
@@ -74,13 +76,22 @@ export function TournamentProvider({ children }: { children: ReactNode }) {
   const [rounds, setRounds] = useState<RoundData[]>([]);
   const [activeRound, setActiveRound] = useState<0 | 1 | 2 | 3 | 4>(0);
   const [meetingsMap, setMeetingsMap] = useState<Record<string, number>>({});
+  const [scoringConfig, setScoringConfig] = useState<ScoringConfig>({
+    basePoints: { ...BASE_POINTS_4 },
+    multipliers: { ...MULTIPLIER },
+    bonuses: {
+      hotStreak: HOT_STREAK_BONUS,
+      arcinemico: ARCINEMICO_BONUS,
+      maxBonus: MAX_BONUS_POINTS,
+    },
+  });
 
   // LocalStorage functions
   const saveToLocalStorage = () => {
     if (!isInitialized) return; // Don't save during initial load
 
     try {
-      const data = { players, games, rounds, meetingsMap, activeRound };
+      const data = { players, games, rounds, meetingsMap, activeRound, scoringConfig };
       localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
     } catch (error) {
       console.error('Errore nel salvataggio su localStorage:', error);
@@ -97,7 +108,7 @@ export function TournamentProvider({ children }: { children: ReactNode }) {
 
       // Validazione base
       if (data.players && Array.isArray(data.players) &&
-          data.rounds && Array.isArray(data.rounds)) {
+        data.rounds && Array.isArray(data.rounds)) {
         setPlayers(data.players);
         setGames(data.games && data.games.length > 0 ? data.games : deepClone(DEFAULT_GAMES));
         setRounds(data.rounds);
@@ -106,9 +117,12 @@ export function TournamentProvider({ children }: { children: ReactNode }) {
           data.activeRound !== undefined
             ? data.activeRound
             : data.rounds.length > 0
-            ? data.rounds[data.rounds.length - 1].index
-            : 0
+              ? data.rounds[data.rounds.length - 1].index
+              : 0
         );
+        if (data.scoringConfig) {
+          setScoringConfig(data.scoringConfig);
+        }
         return true;
       }
       return false;
@@ -151,7 +165,7 @@ export function TournamentProvider({ children }: { children: ReactNode }) {
         clearTimeout(timeoutRef.current);
       }
     };
-  }, [players, games, rounds, activeRound, meetingsMap, isInitialized]);
+  }, [players, games, rounds, activeRound, meetingsMap, scoringConfig, isInitialized]);
 
   // Derived state
   const playerMap = useMemo(
@@ -259,7 +273,7 @@ export function TournamentProvider({ children }: { children: ReactNode }) {
   };
 
   // Import/Export
-  const exportData = () => ({ players, games, rounds, meetingsMap, activeRound });
+  const exportData = () => ({ players, games, rounds, meetingsMap, activeRound, scoringConfig });
 
   const importData = (data: {
     players: Player[];
@@ -267,18 +281,22 @@ export function TournamentProvider({ children }: { children: ReactNode }) {
     rounds: RoundData[];
     meetingsMap?: Record<string, number>;
     activeRound?: 0 | 1 | 2 | 3 | 4;
+    scoringConfig?: ScoringConfig;
   }) => {
     setPlayers(data.players);
     setGames(data.games && data.games.length > 0 ? data.games : DEFAULT_GAMES);
     setRounds(data.rounds);
     setMeetingsMap(data.meetingsMap || {});
+    if (data.scoringConfig) {
+      setScoringConfig(data.scoringConfig);
+    }
     // Usa activeRound salvato se disponibile, altrimenti calcola dall'ultimo round
     setActiveRound(
       data.activeRound !== undefined
         ? data.activeRound
         : data.rounds.length > 0
-        ? data.rounds[data.rounds.length - 1].index
-        : 0
+          ? data.rounds[data.rounds.length - 1].index
+          : 0
     );
   };
 
@@ -289,6 +307,7 @@ export function TournamentProvider({ children }: { children: ReactNode }) {
     rounds,
     activeRound,
     meetingsMap,
+    scoringConfig,
 
     // Derived
     playerMap,
@@ -309,6 +328,7 @@ export function TournamentProvider({ children }: { children: ReactNode }) {
     setRounds,
     setActiveRound,
     setMeetingsMap,
+    setScoringConfig,
     updatePosition,
     setGameForTable,
     exportData,

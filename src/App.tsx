@@ -4,6 +4,7 @@ import { TournamentProvider, useTournamentContext } from "./context/TournamentCo
 import { useTournament } from "./hooks/useTournament";
 import { Header, PlayersSection, GamesSection, CurrentRound, StandingsTable, Footer, TournamentTimeline, RoundsHistory } from "./components/sections";
 import { EditNameModal, EditScoresModal, ExportModal } from "./components/modals";
+import { TournamentConfigModal } from "./components/TournamentConfigModal";
 import type { TableLetter } from "./types";
 
 /**
@@ -41,6 +42,7 @@ function AppContent() {
   const [showExportModal, setShowExportModal] = useState(false);
   const [showEditNameModal, setShowEditNameModal] = useState(false);
   const [showEditScoresModal, setShowEditScoresModal] = useState(false);
+  const [showConfigModal, setShowConfigModal] = useState(false);
   const [editingPlayer, setEditingPlayer] = useState<{ id: string; name: string } | null>(null);
   const [editingScoresPlayerId, setEditingScoresPlayerId] = useState<string | null>(null);
 
@@ -164,6 +166,7 @@ function AppContent() {
           onStartTournament={startTournament}
           onExport={handleExportJSON}
           onClearData={handleClearSavedData}
+          onConfig={() => setShowConfigModal(true)}
         />
 
         {/* Setup Section */}
@@ -243,6 +246,11 @@ function AppContent() {
         onJsonChange={setJsonIO}
         onExport={handleExportJSON}
         onImport={handleImportJSON}
+      />
+
+      <TournamentConfigModal
+        isOpen={showConfigModal}
+        onClose={() => setShowConfigModal(false)}
       />
     </div>
   );

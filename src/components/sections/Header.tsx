@@ -1,6 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { HiPlay, HiDownload, HiTrash } from "react-icons/hi";
+import { HiPlay, HiDownload, HiTrash, HiCog } from "react-icons/hi";
 import { GlassCard, ModernButton } from "../ui";
 import logoImage from "../../assets/WhatsApp Image 2025-01-24 at 12.34.40 (1).jpeg";
 
@@ -8,9 +8,10 @@ interface HeaderProps {
   onStartTournament: () => void;
   onExport: () => void;
   onClearData: () => void;
+  onConfig: () => void;
 }
 
-export const Header: React.FC<HeaderProps> = ({ onStartTournament, onExport, onClearData }) => (
+export const Header: React.FC<HeaderProps> = ({ onStartTournament, onExport, onClearData, onConfig }) => (
   <motion.header
     initial={{ opacity: 0, y: -50 }}
     animate={{ opacity: 1, y: 0 }}
@@ -43,6 +44,9 @@ export const Header: React.FC<HeaderProps> = ({ onStartTournament, onExport, onC
           </ModernButton>
           <ModernButton variant="danger" onClick={onClearData} icon={<HiTrash />}>
             Cancella Dati
+          </ModernButton>
+          <ModernButton variant="secondary" onClick={onConfig} icon={<HiCog />}>
+            Configura
           </ModernButton>
         </div>
       </div>

@@ -1,7 +1,7 @@
 import { toast } from "react-hot-toast";
 import { useTournamentContext } from "../context/TournamentContext";
 import type { TableLetter, RoundData, TableResult } from "../types";
-import { TABLES, MULTIPLIER, GAME_SCHEMA } from "../constants";
+import { TABLES, GAME_SCHEMA } from "../constants";
 import { shuffle, deepClone } from "../utils/helpers";
 import { calculateBasePoints, calculateWinners, calculateBonuses, calculateRoundTotals, updateMeetings } from "../utils/scoring";
 import { computePromotions } from "../utils/promotions";
@@ -17,6 +17,7 @@ export function useTournament() {
     rounds,
     meetingsMap,
     playerMap,
+    scoringConfig,
     setPlayers,
     setRounds,
     setActiveRound,
@@ -141,17 +142,18 @@ export function useTournament() {
       }
     }
 
-    const multiplier = MULTIPLIER[round.index];
+    const multiplier = scoringConfig.multipliers[round.index];
 
     // Calculate scoring
-    const perPlayerRoundBase = calculateBasePoints(round.tables);
+    const perPlayerRoundBase = calculateBasePoints(round.tables, scoringConfig);
     calculateWinners(round.tables);
-    const perPlayerBonusRaw = calculateBonuses(round.tables, playerMap, meetingsMap);
+    const perPlayerBonusRaw = calculateBonuses(round.tables, playerMap, meetingsMap, scoringConfig);
     const perPlayerRoundTotal = calculateRoundTotals(
       players.map((p) => p.id),
       perPlayerRoundBase,
       perPlayerBonusRaw,
-      multiplier
+      multiplier,
+      scoringConfig.bonuses.maxBonus
     );
 
     // Update players
